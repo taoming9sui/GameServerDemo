@@ -1,0 +1,12 @@
+{
+    "name": "socketchat",
+    "version": "0.0.1",
+    "description": "Socket Chat",
+    "main": "server.js",
+    "author": "godone",
+    "dependencies": {
+        "express": "4",
+        "socket.io": "*",
+        "tedious": "*"
+    }
+}

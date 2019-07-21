@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+#golangpanal .panal {
+	position: relative;
+	width: 480px;
+	height: 360px;
+	background-color: #EEEEFF;
+}
+
+#golangpanal .menu {
+	background-color: #6699FF;
+	padding: 0px 6px 0px 6px;
+	height: 30px;
+}
+
+#golangpanal .playermenu {
+	width: 90px;
+	background-color: #FFCC66;
+}
+
+#golangpanal .playermenu .topmenu {
+	height: 160px;
+	padding: 2px;
+	text-align: center;
+	font-size: 14px;
+}
+
+#golangpanal .gametipsbox {
+	height: 30px;
+	line-height: 100%;
+	color: white;
+	font-size: 12px;
+	background-color: #3300FF;
+}

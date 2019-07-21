@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+#roompanal .panal {
+	position: relative;
+	height: 320px;
+	width: 480px;
+	background-color: #6666CC;
+}
+
+#roompanal .createRoomInput {
+	font-size: 14px;
+	line-height: 30px;
+}
+
+#roompanal .createRoomInput span {
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+#roompanal .createRoomInput input {
+	width: 150px;
+}
+
+#roompanal .createRoomInput select {
+	width: 150px;
+	padding: 3px;
+	font-size: 12px;
+}
+
+#roompanal .joinRoomInput {
+	font-size: 14px;
+	line-height: 30px;
+}
+
+#roompanal .joinRoomInput span {
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+#roompanal .joinRoomInput input {
+	width: 150px;
+}
+
+#roompanal .alertcontent {
+	line-height: 30px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+#roompanal .menu {
+	height: 30px;
+}
+
+#roompanal .roomlistbox {
+	background-color: #CC99FF;
+	width: 280px;
+	padding: 3px;
+	margin: 5px;
+}
+
+#roompanal .roomlistbox .roombox {
+	margin: 3px;
+	padding: 3px;
+	border-radius: 3px;
+	background-color: #6699FF;
+	border-radius: 3px;
+}
+
+#roompanal .roomlistbox .roombox:active {
+	background-color: #66AAFF;
+}
+
+#roompanal .roomlistbox .roombox .roombox-game {
+	width: 80px;
+	background-color: #FF0033;
+	padding: 2px;
+	border-radius: 4px;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: center;
+	background-color: #FF9933;
+}
+
+#roompanal .roomlistbox .roombox .roombox-name {
+	width: 220px;
+	border-radius: 4px;
+	padding: 1px 4px 1px 4px;
+	background-color: #EEEEEE;
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#roompanal .roomlistbox .roombox .roombox-player {
+	margin: 0px 4px 0px 8px;
+	color: #FFFF66;
+}
+
+#roompanal .roomlistbox .roombox .roombox-status {
+	margin: 0px 8px 0px 0px;
+	line-height: 22px;
+	font-size: 14px;
+}
+
+#roompanal .roomlistbox .roombox .roombox-haspwd {
+	margin: 0px 8px 0px 4px;
+	line-height: 22px;
+	color: #FFCC33;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#roompanal .roomlistbox .bottombar {
+	background-color: #CCCCFF;
+}
+
+#roompanal .roomlistbox .bottombar .pagebtn {
+	background-color: #663399;
+	color: #FFFFFF;
+	padding: 2px 12px 2px 12px;
+	border-radius: 6px;
+}
+
+#roompanal .roomlistbox .bottombar .pagebtn:active {
+	background-color: #666699;
+}
+
+#roompanal .roomlistbox .bottombar .pageno {
+	padding: 4px 12px 4px 12px;
+}
+
+
+#roompanal .hallmsgbox {
+	margin: 5px;
+}
+
+#roompanal .hallmsgbox .msgListBox {
+	background-color: #EEEEEE;
+	height: 250px;
+	overflow-y: auto;
+}
+
+#roompanal .hallmsgbox .msgListBox .hallmsg {
+	margin: 2px 5px 4px 5px;
+}
+
+#roompanal .hallmsgbox .msgListBox .hallmsg .chatmsghd {
+	font-size: 12px;
+	color: #222222;
+}
+
+#roompanal .hallmsgbox .msgListBox .hallmsg .chatmsgbd {
+	font-size: 14px;
+}
+
+#roompanal .hallmsgbox .msgListBox .hallmsg .notifymsg {
+	font-size: 12px;
+	color: #FF0000;
+}
+
+#roompanal .hallmsgbox .chatinput {
+	padding: 3px 3px 0px 0px;
+}
+		
+#roompanal .hallmsgbox .chatinput input {
+	width: 100%;
+}

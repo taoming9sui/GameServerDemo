@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;GameServerDemo/models/demogame.js&apos; to &apos;golanggame.js&apos;" description="Rename resource &apos;demogame.js&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="models/demogame.js" name="golanggame.js" stamp="1560061655042" updateReferences="true"/>
+</session>

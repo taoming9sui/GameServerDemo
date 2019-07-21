@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+.flex-wrap {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.flex-con {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+}
+
+.flex-mid {
+	align-items: center;
+	justify-content: center;
+}
+
+.flex-vertical {
+	-webkit-box-orient: vertical;
+	-webkit-flex-flow: column;
+	flex-flow: column;
+}
+
+.usable {
+	color: #66FF33;
+}
+
+.alert {
+	color: #FFCC33;
+}
+
+.banned {
+	color: #FF0000;
+}
+
+.buttonbox {
+	margin: 2px;
+}
+
+.buttonbox button {
+	padding: 4px 12px;
+	width: 100%;
+	height: 100%;
+	outline: none;
+	border-radius: 2px;
+	border-width: 0px;
+}
+
+.buttonbox button:active {
+	border-width: 2px;
+	border-color: #FFFFFF;
+}
+
+.modalwrap {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	height: 100%;
+}
+
+.modalwrap .modalshade {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 100%;
+}
+
+.modalwrap .modaldialog {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 240px;
+	background-color: #6666CC;
+}
+
+.modalwrap .modaldialog .dialoghd {
+	padding: 2px 6px 2px 6px;
+	background-color: #33CCFF;
+}
+
+.modalwrap .modaldialog .dialoghd span {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.modalwrap .modaldialog .dialogbd {
+	padding: 4px 6px 4px 6px;
+	background-color: #6666CC;
+}
+.modalwrap .modaldialog .dialogft {
+	padding: 2px 6px 2px 6px;
+	background-color: #33CCFF;
+	text-align: right;
+}

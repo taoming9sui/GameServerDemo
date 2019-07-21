@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>客户端</title>
+<link href="./mstyle.css" rel="stylesheet" />
+<link href="./roompanal.css" rel="stylesheet" />
+<link href="./golangpanal.css" rel="stylesheet" />
+</head>
+
+<body>
+
+	<div id="roompanal">
+		<div class="panal flex-wrap flex-vertical" v-if="isActive">
+			<div v-if="createRoomModelData.show" class="modalwrap">
+				<div class="modalshade" v-on:click="createRoomModel('cancel')"></div>
+				<div class="modaldialog">
+					<div class="dialoghd">
+						<span>创建房间</span>
+					</div>
+					<div class="dialogbd">
+						<div class="createRoomInput">
+							<span>房 名</span> <input type="text" placeholder="汉字字母数字3-16位"
+								v-model="createRoomModelData.roomName" />
+						</div>
+						<div class="createRoomInput">
+							<span>密 码</span> <input type="text" placeholder="为空默认无密码"
+								v-model="createRoomModelData.roomPwd" />
+						</div>
+						<div class="createRoomInput">
+							<span>游戏类型</span> <select v-model="createRoomModelData.gameId">
+								<option value="golang">五子棋</option>
+							</select>
+						</div>
+					</div>
+					<div class="dialogft flex-wrap">
+						<div class="buttonbox">
+							<button type="button" v-on:click="createRoomModel('ok')">确 认</button>
+						</div>
+						<div class="buttonbox">
+							<button type="button" v-on:click="createRoomModel('cancel')">取 消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="joinRoomModelData.show" class="modalwrap">
+				<div class="modalshade" v-on:click="joinRoomModel('cancel')"></div>
+				<div class="modaldialog">
+					<div class="dialoghd">
+						<span>该房间需要密码</span>
+					</div>
+					<div class="dialogbd">
+						<div class="joinRoomInput">
+							<span>密 码</span> <input type="text" placeholder="16位密码"
+								v-model="joinRoomModelData.roomPwd" />
+						</div>
+					</div>
+					<div class="dialogft flex-wrap">
+						<div class="buttonbox">
+							<button type="button" v-on:click="joinRoomModel('ok')">确 认</button>
+						</div>
+						<div class="buttonbox">
+							<button type="button" v-on:click="joinRoomModel('cancel')">取 消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="alertModelData.show" class="modalwrap">
+				<div class="modalshade" v-on:click="alertModel('ok')"></div>
+				<div class="modaldialog">
+					<div class="dialoghd">
+						<span>提示</span>
+					</div>
+					<div class="dialogbd">
+						<div class="alertcontent">{{alertModelData.content}}</div>
+					</div>
+					<div class="dialogft flex-wrap">
+						<div class="buttonbox">
+							<button type="button" v-on:click="alertModel('ok')">确 认</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu flex-wrap">
+				<div class="buttonbox">
+					<button type="button" v-on:click="createRoomModel('show')">创建房间</button>
+				</div>
+			</div>
+			<div class="flex-con flex-wrap">
+				<div class="roomlistbox flex-wrap flex-vertical">
+					<div v-for="(value,index) in roomList" v-bind:key="value.roomId"
+						v-on:click="tryJoinRoom(value)" class="roombox">
+						<div class="roombox-up flex-wrap">
+							<div class="roombox-game">{{value.gameName}}</div>
+							<div class="roombox-name">{{value.roomName}}</div>
+						</div>
+						<div class="roombox-down flex-wrap">
+							<div class="roombox-player">({{value.playerCount}}/{{value.maxPlayer}})</div>
+							<div v-bind:class="{ 'usable': value.roomStatus==0, 'banned': value.roomStatus!=0 }"
+								class="roombox-status">{{getStatusText(value.roomStatus)}}</div>
+							<div v-if="value.hasPwd" class="roombox-haspwd">密码</div>
+						</div>
+					</div>
+					<div class="flex-con"></div>
+					<div class="bottombar flex-wrap">
+						<div class="flex-wrap">
+							<div v-on:click="prevPage()" class="pagebtn">&lt;</div>
+							<div class="pageno">{{currentPage}}/{{pageCount}}</div>
+							<div v-on:click="nextPage()" class="pagebtn">&gt;</div>
+						</div>
+						<div class="flex-con"></div>
+					</div>
+				</div>
+				<div class="hallmsgbox flex-con flex-wrap flex-vertical">
+					<div ref="msgListBox" class="msgListBox">
+						<div v-for="(value,index) in msgList" class="hallmsg">
+							<div v-if="value.msgType == 1">
+								<div class="chatmsghd">
+									<span>{{value.sender}}</span> <span>{{value.time}}</span>
+								</div>
+								<div class="chatmsgbd">
+									<span class="msgcontent">{{value.txt}}</span>
+								</div>
+							</div>
+							<div v-else-if="value.msgType == 2">
+								<div class="notifymsg">
+									<span>{{value.txt}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="chatinput">
+						<input type="text" v-model="chatInput" v-on:keyup.enter="sendChatMsg()" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div id="golangpanal">
+		<div class="panal flex-wrap flex-vertical" v-if="isActive">
+			<div class="menu flex-wrap">
+				<div class="flex-con">
+					<div style="line-height: 30px; color: white">{{roomTitle}}</div>
+				</div>
+				<div class="buttonbox">
+					<button type="button" v-on:click="quitGame()">退出</button>
+				</div>
+			</div>
+			<div class="flex-con flex-wrap">
+				<div class="playermenu">
+					<div v-if="players[0] != null">
+						<div class="topmenu">
+							<div>{{players[0].name}}</div>
+							<img src="./head.png" alt="玩家1 头像" width="60" />
+							<div style="color:Brown; font-size:12px; font-weight:bold">{{player1Status}}</div>							
+							<div v-if="status == 0 && playerNum == 0">
+								<div v-if="!players[0].isReady" class="buttonbox">
+									<button type="button" v-on:click="gameReady(true)">准备</button>
+								</div>
+								<div v-if="players[0].isReady" class="buttonbox">
+									<button type="button" v-on:click="gameReady(false)">取消准备</button>
+								</div>
+							</div>
+							<div v-if="status == 1">
+								<div v-if="players[0].side == 1" style="color:black; font-size:14px; font-weight:bold">
+									黑方
+								</div>
+								<div v-if="players[0].side == 2" style="color:white; font-size:14px; font-weight:bold">
+									白方
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex-con flex-wrap flex-vertical">
+					<div class="gametipsbox flex-wrap flex-mid">
+						<span>{{gameTips}}</span>
+					</div>
+					<div class="flex-con">
+						<canvas v-on:click="playerBoardOperation(name,$event)" ref="boardcanvas" width="300" height="300" style="display: block"></canvas>
+					</div>
+				</div>
+				<div class="playermenu">
+					<div v-if="players[1] != null">
+						<div class="topmenu">
+							<div>{{players[1].name}}</div>
+							<img src="./head.png" alt="玩家2 头像" width="60" />
+							<div style="color: Brown; font-size: 12px; font-weight: bold">{{player2Status}}</div>
+							<div v-if="status == 0 && playerNum == 1">
+								<div v-if="!players[1].isReady" class="buttonbox">
+									<button type="button" v-on:click="gameReady(true)">准备</button>
+								</div>
+								<div v-if="players[1].isReady" class="buttonbox">
+									<button type="button" v-on:click="gameReady(false)">取消准备</button>
+								</div>
+							</div>
+							<div v-if="status == 1">
+								<div v-if="players[1].side == 1" style="color:black; font-size:14px; font-weight:bold">
+									黑方
+								</div>
+								<div v-if="players[1].side == 2" style="color:white; font-size:14px; font-weight:bold">
+									白方
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script src="/resources/vue.min.js" type="text/javascript"></script>
+<script src="/socket.io/socket.io.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var socket;
+	var nowPanal;
+
+	window.onload = function() {
+		var connect = function() {
+			socket = io.connect("ws:\/\/");
+			socket.on("connect", function(data) {
+				onConnect(data);
+			});
+			socket.on("disconnect", function(data) {
+				onDisconnect(data);
+			});
+			socket.on("connect_timeout", function(data) {
+				onConnectTimeout(data);
+			});
+			socket.on("connect_error", function(data) {
+				onConnectError(data);
+			});
+			socket.on("server-msg", function(data) {
+				onServerMsg(data);
+			});
+			socket.on("game-msg", function(data) {
+				onGameMsg(data);
+			});
+		}
+		connect();
+		setActivePanal(vue_roompanal);
+	}
+
+	function setActivePanal(panal) {
+		var setActive = function(panal, flag) {
+			if (flag == panal.isActive)
+				return;
+			panal.isActive = flag;
+			if (panal.isActive)
+				panal.onActive();
+			else
+				panal.onSleep();
+		};
+		// 切换当前界面
+		if (nowPanal)
+			setActive(nowPanal, false);
+		nowPanal = panal;
+		setActive(nowPanal, true);
+	}
+	function onConnect(data) {
+		if (nowPanal) {
+			console.log(data);
+			nowPanal.onConnect();
+		}
+	}
+	function onDisconnect(data) {
+		if (nowPanal) {
+			console.log(data);
+			nowPanal.onDisconnect();
+		}
+	}
+	function onConnectTimeout(data) {
+		console.log(data);
+	}
+	function onConnectError(data) {
+		console.log(data);
+	}
+	function onServerMsg(data) {
+		if (nowPanal) {
+			console.log(data);
+			nowPanal.onServerMsg(data);
+		}
+	}
+	function onGameMsg(data) {
+		if (nowPanal) {
+			console.log(data);
+			nowPanal.onGameMsg(data);
+		}
+	}
+	function sendServerMsg(data) {
+		if (socket.connected) {
+			socket.emit("server-msg", data);
+		} else {
+			console.log("发送失败：" + JSON.stringify(data));
+		}
+	}
+	function sendGameMsg(data) {
+		if (socket.connected) {
+			socket.emit("game-msg", data);
+		} else {
+			console.log("发送失败：" + JSON.stringify(data));
+		}
+	}
+</script>
+<script src="./roompanal.js" type="text/javascript"></script>
+<script src="./golangpanal.js" type="text/javascript"></script>
+</html>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;socket-server-app/src/services-server/index.js&apos; to &apos;indexs.js&apos;" description="Rename resource &apos;index.js&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/services-server/index.js" name="indexs.js" stamp="1552009775112" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;socket-server-app/src/services-server/indexs.js&apos; to &apos;index.js&apos;" description="Rename resource &apos;indexs.js&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/services-server/indexs.js" name="index.js" stamp="1552009885676" updateReferences="true"/>
+</session>
